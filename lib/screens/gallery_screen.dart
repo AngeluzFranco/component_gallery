@@ -7,20 +7,36 @@ import '../widgets/custom_chip.dart';
 import '../widgets/custom_alert.dart';
 import '../widgets/custom_input.dart';
 import '../widgets/custom_progress.dart';
+import '../widgets/custom_divider.dart';
+import '../widgets/custom_toggle.dart';
 
 class GalleryScreen extends StatelessWidget {
-  const GalleryScreen({super.key});
+  final VoidCallback onThemeToggle;
+  final bool isDarkMode;
+
+  const GalleryScreen({
+    super.key,
+    required this.onThemeToggle,
+    required this.isDarkMode,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text('Galería de Componentes'),
         centerTitle: true,
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         elevation: 2,
+        actions: [
+          IconButton(
+            icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
+            onPressed: onThemeToggle,
+            tooltip: isDarkMode ? 'Modo Claro' : 'Modo Oscuro',
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -362,6 +378,81 @@ class GalleryScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
+
+            // 9. CustomDivider Section
+            _buildSection(
+              title: '9. Divisores',
+              icon: Icons.horizontal_rule,
+              description: 'Divisores con diferentes estilos',
+              child: Column(
+                children: [
+                  const SizedBox(height: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Solid',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const CustomDivider(
+                        variant: DividerVariant.solid,
+                        thickness: 2,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Dashed',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const CustomDivider(
+                        variant: DividerVariant.dashed,
+                        thickness: 2,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gradient',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const CustomDivider(
+                        variant: DividerVariant.gradient,
+                        thickness: 3,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // 10. CustomToggle Section
+            _buildSection(
+              title: '10. Toggles',
+              icon: Icons.toggle_on,
+              description: 'Interruptores con animaciones',
+              child: _ToggleSection(),
+            ),
+            const SizedBox(height: 24),
           ],
         ),
       ),
@@ -374,49 +465,138 @@ class GalleryScreen extends StatelessWidget {
     required String description,
     required Widget child,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: Colors.blue, size: 24),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+    return Builder(
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 2),
               ),
             ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            description,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey.shade600,
-            ),
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(icon, color: Theme.of(context).colorScheme.primary, size: 24),
+                  const SizedBox(width: 8),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                description,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 8),
+              const Divider(),
+              child,
+            ],
           ),
-          const SizedBox(height: 8),
-          const Divider(),
-          child,
-        ],
-      ),
+        );
+      },
+    );
+  }
+}
+
+class _ToggleSection extends StatefulWidget {
+  @override
+  State<_ToggleSection> createState() => _ToggleSectionState();
+}
+
+class _ToggleSectionState extends State<_ToggleSection> {
+  bool _standardValue = false;
+  bool _iosValue = true;
+  bool _customValue = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 12),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Standard Toggle',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            CustomToggle(
+              value: _standardValue,
+              onChanged: (value) {
+                setState(() {
+                  _standardValue = value;
+                });
+              },
+              variant: ToggleVariant.standard,
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'iOS Style Toggle',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            CustomToggle(
+              value: _iosValue,
+              onChanged: (value) {
+                setState(() {
+                  _iosValue = value;
+                });
+              },
+              variant: ToggleVariant.ios,
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Custom Animated Toggle',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey.shade700,
+              ),
+            ),
+            CustomToggle(
+              value: _customValue,
+              onChanged: (value) {
+                setState(() {
+                  _customValue = value;
+                });
+              },
+              variant: ToggleVariant.custom,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

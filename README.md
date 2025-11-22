@@ -13,9 +13,9 @@ La aplicación está diseñada para mostrar componentes puramente visuales, orga
 
 ## 🎨 Componentes Implementados
 
-Este proyecto incluye **8 componentes personalizados**, cada uno con al menos 3 variantes:
+Este proyecto incluye **10 componentes personalizados**, cada uno con al menos 3 variantes:
 
-1. **CustomButton** - Botones personalizados
+1. **CustomButton** - Botones personalizados con animación
 2. **CustomCard** - Tarjetas contenedoras
 3. **CustomAvatar** - Avatares con diferentes formas
 4. **CustomBadge** - Etiquetas de estado
@@ -23,12 +23,14 @@ Este proyecto incluye **8 componentes personalizados**, cada uno con al menos 3 
 6. **CustomAlert** - Alertas informativas
 7. **CustomInput** - Campos de entrada de texto
 8. **CustomProgress** - Indicadores de progreso
+9. **CustomDivider** - Divisores con diferentes estilos
+10. **CustomToggle** - Interruptores animados
 
 ## 📊 Tabla de Componentes y Variantes
 
 | Componente | Variante 1 | Variante 2 | Variante 3 | Variante 4 |
 |------------|-----------|-----------|-----------|-----------|
-| **CustomButton** | Primary | Secondary | Outlined | - |
+| **CustomButton** | Primary (Animado) | Secondary (Animado) | Outlined (Animado) | - |
 | **CustomCard** | Elevated | Outlined | Filled | - |
 | **CustomAvatar** | Circular | Rounded | Square | - |
 | **CustomBadge** | Info | Success | Warning | Error |
@@ -36,6 +38,8 @@ Este proyecto incluye **8 componentes personalizados**, cada uno con al menos 3 
 | **CustomAlert** | Info | Success | Warning | Error |
 | **CustomInput** | Standard | Outlined | Filled | - |
 | **CustomProgress** | Linear | Circular | Custom | - |
+| **CustomDivider** | Solid | Dashed | Gradient | - |
+| **CustomToggle** | Standard | iOS Style | Custom Animado | - |
 
 ## 🏗️ Estructura del Proyecto
 
@@ -52,7 +56,9 @@ lib/
     ├── custom_chip.dart
     ├── custom_alert.dart
     ├── custom_input.dart
-    └── custom_progress.dart
+    ├── custom_progress.dart
+    ├── custom_divider.dart
+    └── custom_toggle.dart
 ```
 
 ## 🚀 Instrucciones para Ejecutar el Proyecto
@@ -113,12 +119,14 @@ lib/
 ## ✨ Características Principales
 
 - ✅ Estructura organizada con carpetas `widgets/` y `screens/`
-- ✅ 8 componentes diferentes con múltiples variantes
+- ✅ **10 componentes diferentes** con múltiples variantes
 - ✅ Uso de enumeraciones (enums) para variantes
-- ✅ Componentes implementados como StatelessWidget
+- ✅ **Animaciones fluidas** en botones y toggles (+5%)
+- ✅ **Dark Mode** implementado con toggle en AppBar (+3%)
 - ✅ Diseño responsivo y visualmente atractivo
 - ✅ Código limpio y bien documentado
 - ✅ Sin dependencias externas para los componentes
+- ✅ Uso de `const` para optimización de rendimiento
 
 ## 📱 Características de los Componentes
 
@@ -146,6 +154,28 @@ Campos de entrada de texto con tres estilos: standard (línea inferior), outline
 ### CustomProgress
 Indicadores de progreso en tres formatos: linear (barra horizontal), circular, y custom (circular con porcentaje).
 
+### CustomDivider
+Divisores personalizados con tres estilos: solid (línea sólida), dashed (línea discontinua), y gradient (gradiente).
+
+### CustomToggle
+Interruptores con animaciones suaves en tres variantes: standard, iOS style, y custom animado con transición de posición.
+
+## 🌟 Puntos Extra Implementados
+
+### ✅ +5% - Más de 10 componentes
+Se implementaron **10 componentes** personalizados (2 adicionales: CustomDivider y CustomToggle).
+
+### ✅ +5% - Animaciones en componentes
+- **CustomButton**: Animación de escala al presionar (efecto de rebote)
+- **CustomToggle**: Animación suave del switch con transición de color y posición
+
+### ✅ +3% - Dark Mode
+- Toggle en el AppBar para cambiar entre modo claro y oscuro
+- Todos los componentes se adaptan automáticamente al tema
+- Paleta de colores consistente en ambos modos
+
+**Total de puntos extra: +13%**
+
 ## 📄 Licencia
 
 Este proyecto fue desarrollado como parte de una práctica académica.
@@ -153,5 +183,5 @@ Este proyecto fue desarrollado como parte de una práctica académica.
 ---
 
 **Desarrollado por:** Angeluz Abimelek Franco Hernandez  
-**Institución:** [Tu Institución]  
+**Institución:** UTEZ 
 **Fecha:** Noviembre 2025
